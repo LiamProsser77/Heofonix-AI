@@ -1,0 +1,20 @@
+
+-- Add device_id columns
+ALTER TABLE public.conversations ADD COLUMN device_id text;
+ALTER TABLE public.messages ADD COLUMN device_id text;
+
+-- Drop old user-based policies
+DROP POLICY IF EXISTS "Users can read own conversations" ON public.conversations;
+DROP POLICY IF EXISTS "Users can create own conversations" ON public.conversations;
+DROP POLICY IF EXISTS "Users can update own conversations" ON public.conversations;
+DROP POLICY IF EXISTS "Users can delete own conversations" ON public.conversations;
+DROP POLICY IF EXISTS "Users can read own messages" ON public.messages;
+DROP POLICY IF EXISTS "Users can create own messages" ON public.messages;
+
+-- Public policies (device_id filtering done client-side)
+CREATE POLICY "Public read conversations" ON public.conversations FOR SELECT USING (true);
+CREATE POLICY "Public insert conversations" ON public.conversations FOR INSERT WITH CHECK (true);
+CREATE POLICY "Public update conversations" ON public.conversations FOR UPDATE USING (true);
+CREATE POLICY "Public delete conversations" ON public.conversations FOR DELETE USING (true);
+CREATE POLICY "Public read messages" ON public.messages FOR SELECT USING (true);
+CREATE POLICY "Public insert messages" ON public.messages FOR INSERT WITH CHECK (true);
