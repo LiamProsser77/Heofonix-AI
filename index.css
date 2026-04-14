@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --background: 240 15% 5%;
+    --foreground: 210 40% 95%;
+
+    --card: 240 12% 8%;
+    --card-foreground: 210 40% 95%;
+
+    --popover: 240 12% 8%;
+    --popover-foreground: 210 40% 95%;
+
+    --primary: 220 90% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 14%;
+    --secondary-foreground: 210 40% 95%;
+
+    --muted: 240 10% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 180 100% 50%;
+    --accent-foreground: 240 15% 5%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 18%;
+    --input: 240 10% 14%;
+    --ring: 220 90% 56%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 240 12% 6%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 220 90% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 10% 12%;
+    --sidebar-accent-foreground: 210 40% 90%;
+    --sidebar-border: 240 10% 15%;
+    --sidebar-ring: 220 90% 56%;
+
+    --gradient-blue: 220 90% 56%;
+    --gradient-purple: 270 80% 60%;
+    --gradient-cyan: 180 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--gradient-blue)), hsl(var(--gradient-purple)), hsl(var(--gradient-cyan)));
+  }
+
+  .gradient-border {
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--gradient-blue) / 0.4), hsl(var(--gradient-cyan) / 0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 20px hsl(var(--gradient-blue) / 0.15), 0 0 60px hsl(var(--gradient-blue) / 0.05);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px hsl(var(--gradient-cyan) / 0.15), 0 0 60px hsl(var(--gradient-cyan) / 0.05);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Markdown prose styling */
+.prose-chat {
+  @apply text-foreground leading-relaxed;
+}
+.prose-chat p {
+  @apply mb-3 last:mb-0;
+}
+.prose-chat code {
+  @apply bg-secondary px-1.5 py-0.5 rounded text-sm font-mono;
+}
+.prose-chat pre {
+  @apply bg-secondary p-4 rounded-lg overflow-x-auto mb-3;
+}
+.prose-chat pre code {
+  @apply bg-transparent p-0;
+}
+.prose-chat ul, .prose-chat ol {
+  @apply pl-6 mb-3;
+}
+.prose-chat li {
+  @apply mb-1;
+}
+.prose-chat h1, .prose-chat h2, .prose-chat h3 {
+  @apply font-semibold mb-2 mt-4 first:mt-0;
+}
+.prose-chat blockquote {
+  @apply border-l-2 border-primary pl-4 italic opacity-80 mb-3;
+}
